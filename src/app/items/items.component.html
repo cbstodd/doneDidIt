@@ -7,12 +7,47 @@
                  <b>{{ item.title }}</b>
              </span>
             <span class="secondary-content">
-                <i class="fa fa-trash" (click)="onDeleteItem($event, item)"></i>
+                <i class="fa fa-edit" *ngIf="!editState" (click)="onEditItem($event, item)"></i>
+                <i class="fa fa-compress side" *ngIf="editState" (click)="onCancelEdit()"></i>
+                <i class="fa fa-trash side" (click)="onDeleteItem($event, item)"></i>
             </span>
             <hr>
             <p class="item-description">
                 {{ item.description }}
             </p>
+            <div *ngIf="editState && itemToEdit.id == item.id">
+                <form (ngSubmit)="updateItem(item)">
+                    <div class="row">
+                        <form (ngSubmit)="onUpdateItem(item)">
+                            <div class="input-field col s4">
+                                <input type="text"
+                                       class="validate"
+                                       name="title"
+                                       [(ngModel)]="item.title">
+                            </div>
+                            <div class="input-field col s8">
+                                <input type="text"
+                                       class="validate"
+                                       name="description"
+                                       [(ngModel)]="item.description">
+                            </div>
+                            <button type="submit"
+                                    value="Submit"
+                                    class="waves-effect waves-light btn blue-grey">Update
+                            </button>
+                            <button class="waves-effect waves-light btn grey"
+                                    *ngIf="editState"
+                                    (click)="onCancelEdit()">
+                                <i class="fa fa-compress"></i>&nbsp;Cancel
+                            </button>
+                            <button class="waves-effect waves-light btn red lighten-2"
+                                    (click)="onDeleteItem(event, item)">
+                                <i class="fa fa-trash"></i>&nbsp;Delete
+                            </button>
+                        </form>
+                    </div>
+                </form>
+            </div>
         </li>
     </ul>
 </span>

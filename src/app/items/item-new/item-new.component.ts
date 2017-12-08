@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../item';
 
@@ -9,7 +9,7 @@ import { Item } from '../item';
 })
 export class ItemNewComponent implements OnInit {
 
-    item: Item = {
+    @Input() item: Item = {
         title: '',
         description: ''
     };

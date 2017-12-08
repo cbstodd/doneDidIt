@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../services/item.service';
-import { AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Item } from './item';
 import { Observable } from 'rxjs/Observable';
 
@@ -11,11 +10,28 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ItemsComponent implements OnInit {
     items$: Observable<Item[]>;
-    itemsCollection: AngularFirestoreCollection<Item[]>;
+    editState: boolean;
+    itemToEdit: object;
 
     constructor(private itemService: ItemService) { }
 
-    onDeleteItem(event, item) {
+
+    onEditItem(event, item: Item) {
+        this.editState  = true;
+        this.itemToEdit = item;
+    }
+
+    onCancelEdit() {
+        this.editState = false;
+    }
+
+    onUpdateItem(item: Item) {
+        this.itemService.updateItem(item);
+        this.editState = false;
+    }
+
+    onDeleteItem(event, item: Item) {
+        this.onCancelEdit();
         this.itemService.deleteItem(item);
         console.log(`event: ${event}`);
         console.log(`item: ${item}`);
