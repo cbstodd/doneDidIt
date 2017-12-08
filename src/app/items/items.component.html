@@ -1,0 +1,23 @@
+<app-item-new></app-item-new>
+
+<span *ngIf="items$">
+    <ul class="collection" *ngFor="let item of items$ | async">
+        <li class="collection-item" (dblclick)="onDeleteItem($event, item)">
+             <span class="title">
+                 <b>{{ item.title }}</b>
+             </span>
+            <span class="secondary-content">
+                <i class="fa fa-trash" (click)="onDeleteItem($event, item)"></i>
+            </span>
+            <hr>
+            <p class="item-description">
+                {{ item.description }}
+            </p>
+        </li>
+    </ul>
+</span>
+
+<ng-template #noItems>
+    <h5 class="center-align">No Todo's</h5>
+</ng-template>
+

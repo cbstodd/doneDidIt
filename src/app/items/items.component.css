@@ -1,0 +1,14 @@
+.item-title {
+    float: left;
+}
+.item-description {
+}
+
+hr {
+    border: 1px solid #fcfcfd;
+}
+
+i.fa-trash {
+    color: #EC6268;
+    cursor: pointer;
+}
